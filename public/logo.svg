@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="200" cy="150" r="120" fill="#f0f9ff"/>
+  
+  <!-- Main 'S' shape -->
+  <path d="M180,90 
+           C150,90 130,110 130,135 
+           C130,160 150,170 200,180 
+           C250,190 270,200 270,230 
+           C270,260 240,280 200,280 
+           C160,280 140,260 130,240" 
+        stroke="#3b82f6" 
+        stroke-width="20" 
+        stroke-linecap="round" 
+        fill="none"/>
+  
+  <!-- Payment line crossing through 'S' -->
+  <path d="M110,180 L290,120" 
+        stroke="#1e40af" 
+        stroke-width="12" 
+        stroke-linecap="round"/>
+  
+  <!-- Circle accent dots -->
+  <circle cx="120" cy="180" r="15" fill="#3b82f6"/>
+  <circle cx="280" cy="120" r="15" fill="#3b82f6"/>
+  
+  <!-- Text -->
+  <text x="200" y="330" 
+        font-family="Arial, sans-serif" 
+        font-size="36" 
+        font-weight="bold" 
+        text-anchor="middle" 
+        fill="#1e40af">SPAY</text>
+</svg>
