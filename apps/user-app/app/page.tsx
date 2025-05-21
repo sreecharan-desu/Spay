@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { ArrowRight, Shield, CreditCard, Menu, X, CheckCircle, Star, ChevronRight } from "lucide-react";
-
+import { FaDiscord, FaGithub, FaLinkedin, FaYoutube } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 export default function SpayLandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -183,7 +184,7 @@ Spay is a secure and seamless payment gateway powered by a custom-built <b class
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-black">Trusted by Thousands</h2>
             <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-              Here's what our customers have to say about their experience with Spay.
+              Here&apos;s what our customers have to say about their experience with Spay.
             </p>
           </div>
           
@@ -198,7 +199,7 @@ Spay is a secure and seamless payment gateway powered by a custom-built <b class
                 <Star className="h-5 w-5 fill-current" />
               </div>
               <p className="text-gray-700 mb-6">
-                "Spay has completely transformed how my business handles payments. The instant transfers are a game-changer for our cash flow."
+                &quot;Spay has completely transformed how my business handles payments. The instant transfers are a game-changer for our cash flow.&rdquo;
               </p>
               <div className="flex items-center">
                 <div className="h-10 w-10 bg-gray-300 rounded-full mr-3"></div>
@@ -219,7 +220,7 @@ Spay is a secure and seamless payment gateway powered by a custom-built <b class
                 <Star className="h-5 w-5 fill-current" />
               </div>
               <p className="text-gray-700 mb-6">
-                "Security was my biggest concern when choosing a payment platform. With Spay, I've never had a single issue. Highly recommended!"
+                &quot;Security was my biggest concern when choosing a payment platform. With Spay, I&apos;ve never had a single issue. Highly recommended!&quot;
               </p>
               <div className="flex items-center">
                 <div className="h-10 w-10 bg-gray-300 rounded-full mr-3"></div>
@@ -240,7 +241,7 @@ Spay is a secure and seamless payment gateway powered by a custom-built <b class
                 <Star className="h-5 w-5 fill-current" />
               </div>
               <p className="text-gray-700 mb-6">
-                &quot;The customer support team at Spay is exceptional. Any questions I&apos;ve had were answered promptly and thoroughly."
+                &quot;The customer support team at Spay is exceptional. Any questions I&apos;ve had were answered promptly and thoroughly.&quot;
               </p>
               <div className="flex items-center">
                 <div className="h-10 w-10 bg-gray-300 rounded-full mr-3"></div>
@@ -298,10 +299,9 @@ Spay is a secure and seamless payment gateway powered by a custom-built <b class
   );
 }
 
-import { FaDiscord, FaGithub, FaLinkedin, FaYoutube } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
 
-export function Footer() {
+
+function Footer() {
   const year = new Date().getFullYear();
   const socialLinks = [
     { name: "GitHub", url: "https://github.com/sreecharan-desu", icon: FaGithub },
