@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -136,7 +137,7 @@ Spay is a secure and seamless payment gateway powered by a custom-built <b class
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-black">Why Choose Spay</h2>
             <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-              We've built our platform with security, speed, and simplicity in mind.
+              We&apos;ve built our platform with security, speed, and simplicity in mind.
             </p>
           </div>
           
