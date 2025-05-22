@@ -1,4 +1,5 @@
 import { ChevronRight } from "lucide-react"
+import { signIn } from "next-auth/react"
 
 export default function CTA() {
     return (<section className="py-16 md:py-20 bg-black text-white">
@@ -9,7 +10,7 @@ export default function CTA() {
               <p className="text-lg text-gray-300 mb-8 max-w-lg">
                 Join thousands of businesses and individuals who trust Spay for their payment needs.
               </p>
-              <button className="px-6 py-3 bg-white text-black font-medium rounded-md hover:bg-gray-100 transition-colors flex items-center">
+              <button              onClick={() => signIn()} className="px-6 py-3 bg-white text-black font-medium rounded-md hover:bg-gray-100 transition-colors flex items-center">
                 Get Started Now <ChevronRight className="ml-2 h-4 w-4" />
               </button>
             </div>

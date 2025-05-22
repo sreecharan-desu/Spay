@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, CreditCard, Shield } from "lucide-react";
+import { signIn } from "next-auth/react";
 export default function Hero() {
     const [animateHero, setAnimateHero] = useState(false);
   
@@ -20,7 +21,7 @@ export default function Hero() {
               <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-lg">
 Spay is a secure and seamless payment gateway powered by a custom-built <b className="font-extrabold text-black font-900">dummy</b> bank server, simulating real-world banking for modern app integration.              </p>
               <div className="mt-10 flex flex-wrap gap-4">
-                <button className="px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors flex items-center">
+                <button onClick={() => signIn()} className="px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors flex items-center">
                   Get Started <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
 
