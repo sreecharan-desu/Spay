@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowRight, Shield, CreditCard, Menu, X, CheckCircle, Star, ChevronRight } from "lucide-react";
+import { ArrowRight, Shield, CreditCard,CheckCircle, Star, ChevronRight } from "lucide-react";
 import { FaDiscord, FaGithub, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { useSession, signIn, signOut } from "next-auth/react"
