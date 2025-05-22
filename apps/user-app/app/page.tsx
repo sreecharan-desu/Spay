@@ -1,18 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { ArrowRight, Shield, CreditCard, Menu, X, CheckCircle, Star, ChevronRight } from "lucide-react";
+import {  Shield, CreditCard, CheckCircle, Star, ChevronRight } from "lucide-react";
 import { FaDiscord, FaGithub, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { useSession, signIn, signOut } from "next-auth/react"
+import Hero from "@repo/ui/landingpage/Hero";
+
 
 export default function SpayLandingPage() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [animateHero, setAnimateHero] = useState(false);
-  
-  // Animation on load
-  useEffect(() => {
-    setAnimateHero(true);
-  }, []);
+    const { data: session } = useSession()
+
 
   return (
     <div className="min-h-screen bg-white text-black">
@@ -29,44 +26,45 @@ export default function SpayLandingPage() {
         
             </div>
             <div className="hidden md:flex items-center">
-              <button className="px-4 py-2 mr-4 text-black font-medium text-sm border border-black rounded-md hover:bg-gray-100 transition-colors">
-                Login
-              </button>
-              <button className="px-4 py-2 bg-black text-white font-medium text-sm rounded-md hover:bg-gray-800 transition-colors">
-                Sign Up
-              </button>
-            </div>
-            <div className="flex items-center md:hidden">
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-600">
-                {isMenuOpen ? <X /> : <Menu />}
-              </button>
-            </div>
+      {session?.user ? (
+        <>
+          <span className="mr-4 text-black font-medium text-sm">
+            Welcome, {session.user.name}
+          </span>
+          <button
+            onClick={() => signOut()}
+            className="px-4 py-2 bg-red-600 text-white font-medium text-sm rounded-md hover:bg-red-700 transition-colors"
+          >
+            Sign Out
+          </button>
+        </>
+      ) : (
+        <>
+          <button
+            onClick={() => signIn()}
+            className="px-4 py-2 mr-4 text-black font-medium text-sm border border-black rounded-md hover:bg-gray-100 transition-colors"
+          >
+            Login
+          </button>
+          <button
+            onClick={() => signIn()}
+            className="px-4 py-2 bg-black text-white font-medium text-sm rounded-md hover:bg-gray-800 transition-colors"
+          >
+            Sign Up
+          </button>
+        </>
+      )}
+    </div>
+       
           </div>
         </div>
         
-        {/* Mobile menu */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-200">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <a href="#features" className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-black hover:bg-gray-100 rounded-md">Features</a>
-              <a href="#business" className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-black hover:bg-gray-100 rounded-md">Business</a>
-              <a href="#developers" className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-black hover:bg-gray-100 rounded-md">Developers</a>
-              <a href="#about" className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-black hover:bg-gray-100 rounded-md">About</a>
-              <div className="pt-4 pb-2 border-t border-gray-200">
-                <button className="w-full px-4 py-2 mb-2 text-black font-medium text-sm border border-black rounded-md hover:bg-gray-100 transition-colors">
-                  Login
-                </button>
-                <button className="w-full px-4 py-2 bg-black text-white font-medium text-sm rounded-md hover:bg-gray-800 transition-colors">
-                  Sign Up
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+ 
       </nav>
 
+      <Hero/>
       {/* Hero Section */}
-      <section className="bg-white border-b border-gray-200">
+      {/* <section className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className={`transition-all duration-1000 ${animateHero ? 'translate-x-0 opacity-100' : '-translate-x-20 opacity-0'}`}>
@@ -129,7 +127,7 @@ Spay is a secure and seamless payment gateway powered by a custom-built <b class
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Features Section */}
       <section id="features" className="py-16 md:py-24 bg-gray-50">
@@ -293,6 +291,8 @@ Spay is a secure and seamless payment gateway powered by a custom-built <b class
           </div>
         </div>
       </section>
+
+
       <Footer />
 
     </div>

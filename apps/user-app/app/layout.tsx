@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-page-custom-font */
+
 import type { Metadata } from "next";
 import "./globals.css";
+import { Providers } from "./Providers";
 export const metadata: Metadata = {
   title: "Spay - Secure Payment Gateway",
   description: "Spay is a secure and seamless payment gateway powered by a custom-built dummy bank server, simulating real-world banking for modern app integration.",
@@ -20,7 +22,7 @@ export default function RootLayout({
       </head>
       <body>
         {/* <Appbar /> */}
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
