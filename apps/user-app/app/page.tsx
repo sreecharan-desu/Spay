@@ -101,7 +101,7 @@ const handleWaitlistSubmit = (e:any) => {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className={`transition-all duration-1000 ease-out ${animateHero ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
               <h1 className="text-5xl lg:text-7xl font-extrabold leading-tight text-black tracking-tight">
-                The Future of <span className="text-gray-500">Payments</span>
+                The Future of <span className="text-green-500">Dummy</span> <span className="text-gray-500">Payments</span>
               </h1>
               <p className="mt-8 text-xl text-gray-600 max-w-md leading-relaxed">
                 Spay is coming—a secure, seamless payment gateway powered by a custom <b className="font-extrabold text-black">dummy</b> bank server.
