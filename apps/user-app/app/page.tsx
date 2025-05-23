@@ -30,9 +30,9 @@ const router = useRouter()
             </div>
             <span className="ml-2 text-black font-bold text-xl">Spay</span>
           </div>
-
-          {/* Desktop Auth Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
+                   {
+              window.location.hostname == "localhost" ? <>
+                        <div className="hidden md:flex items-center space-x-4">
             {session?.user ? (
               <>
                 <span className="text-black font-medium text-sm">
@@ -63,7 +63,6 @@ const router = useRouter()
             )}
           </div>
 
-          {/* Hamburger Icon for Mobile */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -93,10 +92,9 @@ const router = useRouter()
               </svg>
             </button>
           </div>
-        </div>
 
-        {/* Mobile Menu */}
-        {isOpen && (
+        <>
+                {isOpen && (
           <div className="md:hidden mt-2 space-y-2">
             {session?.user ? (
               <>
@@ -128,6 +126,12 @@ const router = useRouter()
             )}
           </div>
         )}
+        </>
+
+              
+              </> : <></>
+          }
+        </div>
       </div>
     </nav>
 
