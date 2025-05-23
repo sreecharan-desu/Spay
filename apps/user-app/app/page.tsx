@@ -5,12 +5,14 @@ import { ArrowRight, Shield, CreditCard,CheckCircle, Star, ChevronRight } from "
 import { FaDiscord, FaGithub, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { useSession, signIn, signOut } from "next-auth/react"
-
+import { useRouter } from 'next/navigation'
 
 export default function SpayLandingPage() {
   const [animateHero, setAnimateHero] = useState(false);
     const { data: session } = useSession()
+  const [isOpen, setIsOpen] = useState(false);
 
+const router = useRouter()
   // Animation on load
   useEffect(() => {
     setAnimateHero(true);
@@ -18,54 +20,116 @@ export default function SpayLandingPage() {
 
   return (
     <div className="min-h-screen bg-white text-black">
-      <nav className="border-b border-gray-200 sticky top-0 z-50 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <div className="flex-shrink-0 flex items-center">
-                <div className="h-8 w-8 bg-black rounded-md flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">S</span>
-                </div>
-                <span className="ml-2 text-black font-bold text-xl">Spay</span>
-              </div>
-        
+    <nav className="border-b border-gray-200 sticky top-0 z-50 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16 items-center">
+          {/* Logo */}
+          <div className="flex items-center">
+            <div className="h-8 w-8 bg-black rounded-md flex items-center justify-center">
+              <span className="text-white font-bold text-xl">S</span>
             </div>
-            <div className="hidden md:flex items-center">
-      {session?.user ? (
-        <>
-          <span className="mr-4 text-black font-medium text-sm">
-            Welcome, {session.user.name}
-          </span>
-          <button
-            onClick={() => signOut()}
-            className="px-4 py-2 bg-red-600 text-white font-medium text-sm rounded-md hover:bg-red-700 transition-colors"
-          >
-            Sign Out
-          </button>
-        </>
-      ) : (
-        <>
-          <button
-            onClick={() => signIn()}
-            className="px-4 py-2 mr-4 text-black font-medium text-sm border border-black rounded-md hover:bg-gray-100 transition-colors"
-          >
-            Login
-          </button>
-          <button
-            onClick={() => signIn()}
-            className="px-4 py-2 bg-black text-white font-medium text-sm rounded-md hover:bg-gray-800 transition-colors"
-          >
-            Sign Up
-          </button>
-        </>
-      )}
-    </div>
-       
+            <span className="ml-2 text-black font-bold text-xl">Spay</span>
+          </div>
+
+          {/* Desktop Auth Buttons */}
+          <div className="hidden md:flex items-center space-x-4">
+            {session?.user ? (
+              <>
+                <span className="text-black font-medium text-sm">
+                  Welcome, {session.user.name}
+                </span>
+                <button
+                  onClick={() => signOut()}
+                  className="px-4 py-2 bg-red-600 text-white font-medium text-sm rounded-md hover:bg-red-700 transition-colors"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => signIn()}
+                  className="px-4 py-2 text-black font-medium text-sm border border-black rounded-md hover:bg-gray-100 transition-colors"
+                >
+                  Signin
+                </button>
+                <button
+                  onClick={() => router.push('/auth/signup')}
+                  className="px-4 py-2 bg-black text-white font-medium text-sm rounded-md hover:bg-gray-800 transition-colors"
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Hamburger Icon for Mobile */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-black focus:outline-none"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
           </div>
         </div>
-        
- 
-      </nav>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="md:hidden mt-2 space-y-2">
+            {session?.user ? (
+              <>
+                <span className="block text-black font-medium text-sm">
+                  Welcome, {session.user.name}
+                </span>
+                <button
+                  onClick={() => signOut()}
+                  className="w-full px-4 py-2 bg-red-600 text-white font-medium text-sm rounded-md hover:bg-red-700 transition-colors"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => signIn()}
+                  className="w-full px-4 py-2 text-black font-medium text-sm border border-black rounded-md hover:bg-gray-100 transition-colors"
+                >
+                  Signin
+                </button>
+                <button
+                  onClick={() => signIn()}
+                  className="w-full px-4 py-2 bg-black text-white font-medium text-sm rounded-md hover:bg-gray-800 transition-colors"
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+    </nav>
 
       {/* Hero Section */}
       <section className="bg-white border-b border-gray-200">
