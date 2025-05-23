@@ -3,7 +3,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./Providers";
-import { Appbar } from "@repo/ui/common/Appbar";
 export const metadata: Metadata = {
   title: "Spay - Secure Payment Gateway",
   description: "Spay is a secure and seamless payment gateway powered by a custom-built dummy bank server, simulating real-world banking for modern app integration.",
@@ -23,7 +22,7 @@ export default function RootLayout({
       </head>
       <body>
         <Providers>
-          <Appbar />
+          {/* <Appbar /> */}
           {children}
         </Providers>
       </body>
