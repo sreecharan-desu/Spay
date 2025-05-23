@@ -1,208 +1,171 @@
-"use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 import { useState, useEffect } from "react";
-import { ArrowRight, Shield, CreditCard,CheckCircle, Star, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { FaDiscord, FaGithub, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { useSession, signIn, signOut } from "next-auth/react"
-import { useRouter } from 'next/navigation'
+import toast, { Toaster } from "react-hot-toast";
+
+// Custom SVG Icons
+const ShieldIcon = () => (
+  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+);
+
+const CreditCardIcon = () => (
+  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+  </svg>
+);
+
+const CheckCircleIcon = () => (
+  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+  </svg>
+);
+
+const ArrowRightIcon = () => (
+  <svg className="w-5 h-5 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+  </svg>
+);
 
 export default function SpayLandingPage() {
   const [animateHero, setAnimateHero] = useState(false);
-    const { data: session } = useSession()
-  const [isOpen, setIsOpen] = useState(false);
-    const [, setIsLocalhost] = useState(false);
+  const [email, setEmail] = useState("");
+  const router = useRouter();
 
-  useEffect(() => {
-    // This only runs on the client
-    if (typeof window !== "undefined" && window.location.hostname === "localhost") {
-      setIsLocalhost(true);
-    }
-  }, []);
-
-
-const router = useRouter()
-  // Animation on load
   useEffect(() => {
     setAnimateHero(true);
   }, []);
 
+const handleWaitlistSubmit = (e:any) => {
+  e.preventDefault();
+  console.log("Waitlist email submitted:", email);
+  toast.success("Thanks for joining the Spay waitlist! Stay tuned for the launch.");
+  setEmail("");
+};
+
   return (
-    <div className="min-h-screen bg-white text-black">
-    
-    <nav className="border-b border-gray-200 sticky top-0 z-50 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          {/* Logo */}
-          <div className="flex items-center">
-            <div className="h-8 w-8 bg-black rounded-md flex items-center justify-center">
-              <span className="text-white font-bold text-xl">S</span>
+    <div className="min-h-screen bg-white text-black font-sans">
+      {/* Navbar */}
+      <Toaster
+  position="top-right"
+  toastOptions={{
+    style: {
+      background: "#000000",
+      color: "#ffffff",
+      border: "1px solid #333333",
+      borderRadius: "16px",
+      padding: "12px 16px",
+      fontSize: "14px",
+      fontWeight: "500",
+      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+    },
+    success: {
+      iconTheme: {
+        primary: "#ffffff",
+        secondary: "#000000",
+      },
+    },
+  }}
+/>
+      <nav className="sticky top-0 z-50 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center">
+              <div className="h-10 w-10 bg-black rounded-full flex items-center justify-center">
+                <span className="text-white font-extrabold text-2xl">S</span>
+              </div>
+              <span className="ml-3 text-black font-extrabold text-2xl tracking-tight">Spay</span>
             </div>
-            <span className="ml-2 text-black font-bold text-xl">Spay</span>
-          </div>
-          {
-            true ?  <>
-                        <div className="hidden md:flex items-center space-x-4">
-            {session?.user ? (
-              <>
-                <span className="text-black font-medium text-sm">
-                  Welcome, {session.user.name}
-                </span>
-                <button
-                  onClick={() => signOut()}
-                  className="px-4 py-2 bg-red-600 text-white font-medium text-sm rounded-md hover:bg-red-700 transition-colors"
-                >
-                  Sign Out
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={() => signIn()}
-                  className="px-4 py-2 text-black font-medium text-sm border border-black rounded-md hover:bg-gray-100 transition-colors"
-                >
-                  Signin
-                </button>
-                <button
-                  onClick={() => router.push('/auth/signup')}
-                  className="px-4 py-2 bg-black text-white font-medium text-sm rounded-md hover:bg-gray-800 transition-colors"
-                >
-                  Sign Up
-                </button>
-              </>
-            )}
-          </div>
-
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-black focus:outline-none"
-            >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            <div className="flex items-center space-x-6">
+              <a href="#features" className="text-gray-600 hover:text-black text-sm font-medium transition-colors">
+                Features
+              </a>
+              <button
+                onClick={() => router.push("#waitlist")}
+                className="px-6 py-2.5 bg-black text-white font-medium text-sm rounded-full hover:bg-gray-900 transition-all transform hover:scale-105"
               >
-                {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
+                Join Waitlist
+              </button>
+            </div>
           </div>
-
-        <>
-                {isOpen && (
-          <div className="md:hidden mt-2 space-y-2">
-            {session?.user ? (
-              <>
-                <span className="block text-black font-medium text-sm">
-                  Welcome, {session.user.name}
-                </span>
-                <button
-                  onClick={() => signOut()}
-                  className="w-full px-4 py-2 bg-red-600 text-white font-medium text-sm rounded-md hover:bg-red-700 transition-colors"
-                >
-                  Sign Out
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={() => signIn()}
-                  className="w-full px-4 py-2 text-black font-medium text-sm border border-black rounded-md hover:bg-gray-100 transition-colors"
-                >
-                  Signin
-                </button>
-                <button
-                  onClick={() => signIn()}
-                  className="w-full px-4 py-2 bg-black text-white font-medium text-sm rounded-md hover:bg-gray-800 transition-colors"
-                >
-                  Sign Up
-                </button>
-              </>
-            )}
-          </div>
-        )}
-        </>
-
-              
-              </> : <></>
-          }
         </div>
-      </div>
-    </nav>
+      </nav>
 
       {/* Hero Section */}
-      <section className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className={`transition-all duration-1000 ${animateHero ? 'translate-x-0 opacity-100' : '-translate-x-20 opacity-0'}`}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-black">
-                Payments Made <span className="text-gray-700">Secure & Simple</span>
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-32">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className={`transition-all duration-1000 ease-out ${animateHero ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
+              <h1 className="text-5xl lg:text-7xl font-extrabold leading-tight text-black tracking-tight">
+                The Future of <span className="text-gray-500">Payments</span>
               </h1>
-              <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-lg">
-Spay is a secure and seamless payment gateway powered by a custom-built <b className="font-extrabold text-black">dummy</b> bank server, simulating real-world banking for modern app integration.              </p>
-              <div className="mt-10 flex flex-wrap gap-4">
-                <button onClick={() => signIn()} className="px-6 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors flex items-center">
-                  Get Started <ArrowRight className="ml-2 h-4 w-4" />
+              <p className="mt-8 text-xl text-gray-600 max-w-md leading-relaxed">
+                Spay is coming—a secure, seamless payment gateway powered by a custom <b className="font-extrabold text-black">dummy</b> bank server.
+              </p>
+              <form onSubmit={handleWaitlistSubmit} className="mt-12 flex flex-col sm:flex-row gap-4">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="px-6 py-3 bg-gray-100 text-black text-sm font-medium rounded-full w-full sm:w-80 focus:outline-none focus:ring-2 focus:ring-black transition-all"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="px-8 py-3 bg-black text-white font-medium text-sm rounded-full hover:bg-gray-900 transition-all transform hover:scale-105 flex items-center justify-center"
+                >
+                  Join Waitlist <ArrowRightIcon />
                 </button>
-
-              </div>
-
+              </form>
+              <p className="mt-6 text-sm text-gray-500">Be the first to experience Spay at launch.</p>
             </div>
-            <div className={`relative transition-all duration-1000 delay-300 ${animateHero ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'} `}>
-              <div className="bg-white rounded-xl border border-gray-200 p-6 transform hover:shadow-lg transition-all">
-                <div className="flex justify-between items-center mb-8">
-                  <div>
-                    <div className="h-10 w-10 bg-black rounded-md flex items-center justify-center">
-                      <span className="text-white font-bold text-xl">S</span>
-                    </div>
+            <div className={`transition-all duration-1000 ease-out delay-300 ${animateHero ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
+              <div className="bg-white rounded-3xl border border-gray-200 p-8 shadow-lg hover:shadow-xl transition-all">
+                <div className="flex justify-between items-center mb-10">
+                  <div className="h-12 w-12 bg-black rounded-full flex items-center justify-center">
+                    <span className="text-white font-extrabold text-2xl">S</span>
                   </div>
                   <div className="text-right">
-                    <p className="text-gray-500 text-sm">Balance</p>
-                    <p className="text-2xl font-bold text-black">₹24,500.00</p>
+                    <p className="text-gray-500 text-sm font-medium">Balance (Preview)</p>
+                    <p className="text-3xl font-bold text-black">₹24,500.00</p>
                   </div>
                 </div>
-                <div className="space-y-4 mb-8">
-                  <div className="bg-gray-50 p-4 rounded-lg flex justify-between items-center">
+                <div className="space-y-6 mb-10">
+                  <div className="bg-gray-50 p-5 rounded-xl flex justify-between items-center">
                     <div className="flex items-center">
-                      <div className="bg-black h-8 w-8 rounded-full flex items-center justify-center text-white mr-3">
-                        <CreditCard className="h-4 w-4" />
+                      <div className="bg-black h-10 w-10 rounded-full flex items-center justify-center text-white mr-4">
+                        <CreditCardIcon />
                       </div>
                       <div>
-                        <p className="font-medium">Recieved from SreeCharan</p>
+                        <p className="font-medium text-gray-800">Received from SreeCharan</p>
                         <p className="text-xs text-gray-500">May 12, 2025</p>
                       </div>
                     </div>
-                    <p className="font-medium text-green-600">+₹2,500.00</p>
+                    <p className="font-medium text-gray-600">+₹2,500.00</p>
                   </div>
-                  <div className="bg-gray-50 p-4 rounded-lg flex justify-between items-center">
+                  <div className="bg-gray-50 p-5 rounded-xl flex justify-between items-center">
                     <div className="flex items-center">
-                      <div className="bg-black h-8 w-8 rounded-full flex items-center justify-center text-white mr-3">
-                        <Shield className="h-4 w-4" />
+                      <div className="bg-black h-10 w-10 rounded-full flex items-center justify-center text-white mr-4">
+                        <ShieldIcon />
                       </div>
                       <div>
-                        <p className="font-medium">Paid to Sreehari</p>
+                        <p className="font-medium text-gray-800">Paid to Sreehari</p>
                         <p className="text-xs text-gray-500">May 10, 2025</p>
                       </div>
                     </div>
-                    <p className="font-medium text-red-600">-₹999.00</p>
+                    <p className="font-medium text-gray-600">-₹999.00</p>
                   </div>
                 </div>
-                <button className="w-full py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors">
-                  Send Money
+                <button
+                  disabled
+                  className="w-full py-3.5 bg-gray-300 text-gray-600 font-medium rounded-full cursor-not-allowed transition-opacity"
+                >
+                  Send Money (Coming Soon)
                 </button>
               </div>
             </div>
@@ -211,176 +174,77 @@ Spay is a secure and seamless payment gateway powered by a custom-built <b class
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-16 md:py-24 bg-gray-50">
+      <section id="features" className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black">Why Choose Spay</h2>
-            <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-              We&apos;ve built our platform with security, speed, and simplicity in mind.
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-black tracking-tight">What Spay Will Offer</h2>
+            <p className="mt-6 text-lg text-gray-600 max-w-xl mx-auto leading-relaxed">
+              We’re crafting a payment platform that’s secure, fast, and effortless.
             </p>
           </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-md transition-all">
-              <div className="h-12 w-12 bg-black rounded-lg flex items-center justify-center mb-5">
-                <Shield className="h-6 w-6 text-white" />
+          <div className="grid md:grid-cols-3 gap-12">
+            <div className="bg-white p-8 rounded-3xl border border-gray-200 hover:shadow-lg transition-all transform hover:-translate-y-1">
+              <div className="h-14 w-14 bg-black rounded-full flex items-center justify-center mb-6">
+                <ShieldIcon />
               </div>
-              <h3 className="text-xl font-bold mb-3">Bank-Grade Security</h3>
-              <p className="text-gray-600">
-                End-to-end encryption and advanced fraud detection keep your money and data safe.
+              <h3 className="text-xl font-bold text-black mb-4">Unbreakable Security</h3>
+              <p className="text-gray-600 leading-relaxed">
+                End-to-end encryption and advanced fraud detection to keep your transactions safe.
               </p>
             </div>
-            
-            {/* Feature 2 */}
-            <div className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-md transition-all">
-              <div className="h-12 w-12 bg-black rounded-lg flex items-center justify-center mb-5">
-                <CreditCard className="h-6 w-6 text-white" />
+            <div className="bg-white p-8 rounded-3xl border border-gray-200 hover:shadow-lg transition-all transform hover:-translate-y-1">
+              <div className="h-14 w-14 bg-black rounded-full flex items-center justify-center mb-6">
+                <CreditCardIcon />
               </div>
-              <h3 className="text-xl font-bold mb-3">Instant Transfers</h3>
-              <p className="text-gray-600">
-                Send and receive money in seconds, not days. No waiting periods.
+              <h3 className="text-xl font-bold text-black mb-4">Lightning-Fast Transfers</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Instant payments with no delays, designed for today’s pace.
               </p>
             </div>
-            
-            {/* Feature 3 */}
-            <div className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-md transition-all">
-              <div className="h-12 w-12 bg-black rounded-lg flex items-center justify-center mb-5">
-                <CheckCircle className="h-6 w-6 text-white" />
+            <div className="bg-white p-8 rounded-3xl border border-gray-200 hover:shadow-lg transition-all transform hover:-translate-y-1">
+              <div className="h-14 w-14 bg-black rounded-full flex items-center justify-center mb-6">
+                <CheckCircleIcon />
               </div>
-              <h3 className="text-xl font-bold mb-3">Zero Hidden Fees</h3>
-              <p className="text-gray-600">
-                Transparent pricing with no surprise charges. Know exactly what you pay.
+              <h3 className="text-xl font-bold text-black mb-4">No Hidden Fees</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Transparent pricing so you always know what you’re paying for.
               </p>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Testimonials */}
-      <section className="py-16 md:py-24 bg-white border-t border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black">Trusted by Thousands</h2>
-            <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-              Here&apos;s what our customers have to say about their experience with Spay.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Testimonial 1 */}
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-              <div className="flex items-center text-yellow-400 mb-4">
-                <Star className="h-5 w-5 fill-current" />
-                <Star className="h-5 w-5 fill-current" />
-                <Star className="h-5 w-5 fill-current" />
-                <Star className="h-5 w-5 fill-current" />
-                <Star className="h-5 w-5 fill-current" />
-              </div>
-              <p className="text-gray-700 mb-6">
-                &quot;Spay has completely transformed how my business handles payments. The instant transfers are a game-changer for our cash flow.&rdquo;
-              </p>
-              <div className="flex items-center">
-                <div className="h-10 w-10 bg-gray-300 rounded-full mr-3"></div>
-                <div>
-                  <p className="font-medium">Priya Sharma</p>
-                  <p className="text-sm text-gray-500">Small Business Owner</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Testimonial 2 */}
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-              <div className="flex items-center text-yellow-400 mb-4">
-                <Star className="h-5 w-5 fill-current" />
-                <Star className="h-5 w-5 fill-current" />
-                <Star className="h-5 w-5 fill-current" />
-                <Star className="h-5 w-5 fill-current" />
-                <Star className="h-5 w-5 fill-current" />
-              </div>
-              <p className="text-gray-700 mb-6">
-                &quot;Security was my biggest concern when choosing a payment platform. With Spay, I&apos;ve never had a single issue. Highly recommended!&quot;
-              </p>
-              <div className="flex items-center">
-                <div className="h-10 w-10 bg-gray-300 rounded-full mr-3"></div>
-                <div>
-                  <p className="font-medium">Arjun Patel</p>
-                  <p className="text-sm text-gray-500">E-commerce Developer</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Testimonial 3 */}
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-              <div className="flex items-center text-yellow-400 mb-4">
-                <Star className="h-5 w-5 fill-current" />
-                <Star className="h-5 w-5 fill-current" />
-                <Star className="h-5 w-5 fill-current" />
-                <Star className="h-5 w-5 fill-current" />
-                <Star className="h-5 w-5 fill-current" />
-              </div>
-              <p className="text-gray-700 mb-6">
-                &quot;The customer support team at Spay is exceptional. Any questions I&apos;ve had were answered promptly and thoroughly.&quot;
-              </p>
-              <div className="flex items-center">
-                <div className="h-10 w-10 bg-gray-300 rounded-full mr-3"></div>
-                <div>
-                  <p className="font-medium">Rahul Mehta</p>
-                  <p className="text-sm text-gray-500">Freelance Designer</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
 
       {/* CTA Section */}
-      <section className="py-16 md:py-20 bg-black text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to simplify your payments?</h2>
-              <p className="text-lg text-gray-300 mb-8 max-w-lg">
-                Join thousands of businesses and individuals who trust Spay for their payment needs.
-              </p>
-              <button className="px-6 py-3 bg-white text-black font-medium rounded-md hover:bg-gray-100 transition-colors flex items-center">
-                Get Started Now <ChevronRight className="ml-2 h-4 w-4" />
-              </button>
-            </div>
-            <div className="hidden md:block">
-              <div className="bg-gray-800 p-8 rounded-lg relative">
-                <div className="flex justify-between items-center mb-6">
-                  <div className="h-10 w-10 bg-white rounded-md flex items-center justify-center">
-                    <span className="text-black font-bold text-xl">S</span>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-gray-400 text-sm">Processing Time</p>
-                    <p className="text-xl font-bold text-white">Instant</p>
-                  </div>
-                </div>
-                <div className="mb-6">
-                  <div className="w-full bg-gray-700 h-2 rounded-full mb-2">
-                    <div className="bg-white h-2 rounded-full w-4/5"></div>
-                  </div>
-                  <div className="flex justify-between text-sm text-gray-400">
-                    <span>80% faster than traditional banks</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <section id="waitlist" className="py-24 bg-black text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">Spay is Almost Here</h2>
+          <p className="text-lg text-gray-300 mb-10 max-w-md mx-auto leading-relaxed">
+            Join the waitlist to get early access to the future of payments.
+          </p>
+          <form onSubmit={handleWaitlistSubmit} className="flex flex-col md:flex-row gap-4 justify-center">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              className="px-6 py-3.5 bg-gray-800 text-white text-sm font-medium rounded-full w-full md:w-80 focus:outline-none focus:ring-2 focus:ring-white transition-all"
+              required
+            />
+            <button
+              type="submit"
+              className="px-8 py-3.5 bg-white text-black font-medium text-sm rounded-full hover:bg-gray-100 transition-all transform hover:scale-105 flex items-center justify-center"
+            >
+              Join Waitlist <ArrowRightIcon />
+            </button>
+          </form>
+          <p className="mt-6 text-sm text-gray-400">We’ll keep you posted on our launch date!</p>
         </div>
       </section>
 
-
       <Footer />
-
     </div>
   );
 }
-
-
 
 function Footer() {
   const year = new Date().getFullYear();
