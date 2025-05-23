@@ -146,7 +146,7 @@ const config = {
   },
   "relativeEnvPaths": {
     "rootEnvPath": null,
-    "schemaEnvPath": "../../.env"
+    "schemaEnvPath": "../../prisma/.env"
   },
   "relativePath": "../../prisma",
   "clientVersion": "6.3.0",
@@ -160,12 +160,12 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": null,
-        "value": "postgresql://postgres:mysecretpassword@localhost:5432/postgres"
+        "value": "postgresql://neondb_owner:npg_f7Kh6metAzEl@ep-tight-tree-a1xg53ht-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = \"postgresql://postgres:mysecretpassword@localhost:5432/postgres\"\n}\n\nmodel User {\n  id       String  @id @default(uuid())\n  name     String\n  email    String  @unique\n  password String\n  OTP      String?\n}\n",
-  "inlineSchemaHash": "d60310b17c05469167a45181aaa2ee1abb256526e461b2a362b787160b360a5b",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = \"postgresql://neondb_owner:npg_f7Kh6metAzEl@ep-tight-tree-a1xg53ht-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require\"\n}\n\nmodel User {\n  id       String  @id @default(uuid())\n  name     String\n  email    String  @unique\n  password String\n  OTP      String?\n}\n",
+  "inlineSchemaHash": "b9e958c06790e6769793ac93b429845bde9e9bc62a92f277f23a4a3ba6867bb8",
   "copyEngine": true
 }
 config.dirname = '/'
